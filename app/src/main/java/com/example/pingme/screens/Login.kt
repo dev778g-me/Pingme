@@ -10,11 +10,12 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.FavoriteBorder
-import androidx.compose.material.icons.filled.KeyboardArrowLeft
+import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.Icon
@@ -76,7 +77,7 @@ var emailtext by remember { mutableStateOf("") }
                         navigationIcon = {
                             IconButton(onClick = {}) {
                                 Icon(
-                                    imageVector = Icons.Default.KeyboardArrowLeft,
+                                    imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                                     contentDescription = "back"
                                 )
                             }
@@ -177,6 +178,12 @@ var emailtext by remember { mutableStateOf("") }
                       authviewmodel.login(emailtext,passwordtext)
                    }, modifier = Modifier.fillMaxWidth().padding(vertical = 10.dp, horizontal = 15.dp)) {
                        Text("Login",modifier = Modifier.padding(vertical = 10.dp))
+                   }
+
+                   Button(onClick = {}, modifier = Modifier.fillMaxWidth().padding(horizontal = 15.dp)) {
+
+
+                       Text(text = "Sign in with Google", modifier = Modifier.padding(vertical = 10.dp))
                    }
 
 

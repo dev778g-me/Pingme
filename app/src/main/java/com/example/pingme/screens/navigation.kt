@@ -21,7 +21,10 @@ fun Navigation(modifier: Modifier = Modifier,authviewmodel: Authviewmodel) {
         }
 
         composable("Home"){
-            Home(navController)
+            Home(
+                navController,
+                authviewmodel
+            )
         }
     }
 }
