@@ -1,7 +1,6 @@
-package com.example.pingme.screens
+package com.example.pingme.auth.screens
 
 import android.widget.Toast
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -44,8 +43,11 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.pingme.auth.repo.Authstate
+import com.example.pingme.auth.repo.Authviewmodel
 
 @OptIn(ExperimentalMaterial3Api::class)
+
 @Composable
 fun LoginScreen(navController: NavController, authviewmodel: Authviewmodel) {
 var emailtext by remember { mutableStateOf("") }
@@ -99,21 +101,24 @@ var emailtext by remember { mutableStateOf("") }
                    .padding(innerPadding)
                    .fillMaxSize()
                    .padding(horizontal = 16.dp),
-                   verticalArrangement = Arrangement.Center,
-                   horizontalAlignment = Alignment.CenterHorizontally
+
+                   horizontalAlignment = Alignment.Start
                ) {
                   // Text("Ping Me", style = TextStyle(fontSize = 24.sp),)
 
 
 
-                   Text(text = "Welcome Back", style =  TextStyle(
-                       fontSize = 32.sp,
-                       fontWeight = FontWeight.SemiBold, letterSpacing = 2.sp
+                   Text(
+
+                       text = "Welcome Back", style =  TextStyle(
+                       fontSize = 24.sp,
+                       fontWeight = FontWeight.SemiBold, letterSpacing = 1.sp,
+
 
                    ))
                    OutlinedTextField(
 
-                       modifier = Modifier.fillMaxWidth().padding(horizontal = 15.dp),
+                       modifier = Modifier.fillMaxWidth().padding(horizontal = 10.dp),
                        value = emailtext,
                        onValueChange = { emailtext = it },
                        label = { Text(text = "Email") },
@@ -136,7 +141,7 @@ var emailtext by remember { mutableStateOf("") }
 
                    Spacer(modifier = Modifier.height(10.dp))
                    OutlinedTextField(
-                       modifier = Modifier.fillMaxWidth().padding(horizontal = 15.dp),
+                       modifier = Modifier.fillMaxWidth().padding(horizontal = 10.dp),
                        value = passwordtext,
                        onValueChange = { passwordtext = it },
                        label = { Text(text = "Password") },

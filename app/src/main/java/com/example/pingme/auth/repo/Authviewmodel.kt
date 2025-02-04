@@ -1,4 +1,4 @@
-package com.example.pingme.screens
+package com.example.pingme.auth.repo
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -9,7 +9,7 @@ class Authviewmodel  : ViewModel(){
     private val auth : FirebaseAuth = FirebaseAuth.getInstance()
 
 private  val _authState = MutableLiveData<Authstate>()
-
+private lateinit var authi : FirebaseAuth
     val  authstate : LiveData<Authstate> = _authState
 init {
     Checkauthentication()
@@ -37,7 +37,8 @@ init {
                 } else if (task.isCanceled) {
                     _authState.value = Authstate.authenticated
                 } else{
-                    _authState.value = Authstate.Error(task.exception?.message?:"Somethinng went wrong")
+                    _authState.value =
+                        Authstate.Error(task.exception?.message ?: "Somethinng went wrong")
                 }
             }
     }
@@ -55,7 +56,8 @@ init {
                 } else if (task.isCanceled) {
                     _authState.value = Authstate.authenticated
                 } else{
-                    _authState.value = Authstate.Error(task.exception?.message?:"Somethinng went wrong")
+                    _authState.value =
+                        Authstate.Error(task.exception?.message ?: "Somethinng went wrong")
                 }
             }
     }
