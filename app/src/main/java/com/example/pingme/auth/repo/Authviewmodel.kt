@@ -9,7 +9,7 @@ class Authviewmodel  : ViewModel(){
     private val auth : FirebaseAuth = FirebaseAuth.getInstance()
 
 private  val _authState = MutableLiveData<Authstate>()
-private lateinit var authi : FirebaseAuth
+
     val  authstate : LiveData<Authstate> = _authState
 init {
     Checkauthentication()
@@ -26,8 +26,14 @@ init {
 
     fun login(email: String, password: String) {
         if (email.isEmpty() ||password.isEmpty()){
-            _authState.value = Authstate.Error("Somethinng went wrong")
+            _authState.value = Authstate.Error("Please fill all fields")
             return
+        }else if (
+            email.isEmpty() && password.isNotEmpty()
+        ){
+            _authState.value = Authstate.Error ("Please fill your Email address")
+        }else if (email.isNotEmpty() && password.isEmpty()){
+            _authState.value = Authstate.Error ("Please fill your Password")
         }
         _authState.value = Authstate.loading
         auth.signInWithEmailAndPassword(email, password)

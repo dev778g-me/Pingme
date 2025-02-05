@@ -15,6 +15,7 @@ import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material3.Button
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.Icon
@@ -179,10 +180,15 @@ var emailtext by remember { mutableStateOf("") }
                    Spacer(modifier = Modifier.height(10.dp))
 
                    FilledTonalButton(onClick = {
-                       println("gn")
+
+
                       authviewmodel.login(emailtext,passwordtext)
                    }, modifier = Modifier.fillMaxWidth().padding(vertical = 10.dp, horizontal = 15.dp)) {
-                       Text("Login",modifier = Modifier.padding(vertical = 10.dp))
+                      if(authstate.value == Authstate.loading){
+                          CircularProgressIndicator()
+                      }else{
+                          Text("Login",modifier = Modifier.padding(vertical = 10.dp))
+                      }
                    }
 
                    Button(onClick = {}, modifier = Modifier.fillMaxWidth().padding(horizontal = 15.dp)) {
