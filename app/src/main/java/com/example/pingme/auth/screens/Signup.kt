@@ -43,155 +43,162 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import cafe.adriel.voyager.core.screen.Screen
 import com.example.pingme.auth.repo.Authstate
 import com.example.pingme.auth.repo.Authviewmodel
 
 @OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun Signup(navController: NavController, authviewmodel: Authviewmodel) {
-    var emailtext by remember { mutableStateOf("") }
-    var passwordtext by remember { mutableStateOf("") }
-    var showpassword by remember { mutableStateOf(false) }
+object Signupscreen : Screen {
+    @Composable
+    override fun Content() {
+        @Composable
+        fun Signup(navController: NavController, authviewmodel: Authviewmodel) {
+            var emailtext by remember { mutableStateOf("") }
+            var passwordtext by remember { mutableStateOf("") }
+            var showpassword by remember { mutableStateOf(false) }
 
-    val context = LocalContext.current
-    val authstate = authviewmodel.authstate.observeAsState()
-    LaunchedEffect(authstate.value) {
-        when (authstate.value) {
-            is Authstate.authenticated -> navController.navigate("Home")
-            is Authstate.Error -> Toast.makeText(
-                context,
+            val context = LocalContext.current
+            val authstate = authviewmodel.authstate.observeAsState()
+            LaunchedEffect(authstate.value) {
+                when (authstate.value) {
+                    is Authstate.authenticated -> navController.navigate("Home")
+                    is Authstate.Error -> Toast.makeText(
+                        context,
 
-                (authstate.value as Authstate.Error).message, Toast.LENGTH_LONG
-            ).show()
+                        (authstate.value as Authstate.Error).message, Toast.LENGTH_LONG
+                    ).show()
 
-            else -> Unit
-        }
-
-    }
-    Scaffold(
-        topBar = {
-            TopAppBar(
-                title = {
-                    Text(
-                        text = "Already have an account?",
-                    modifier = Modifier.fillMaxWidth(),
-                    style = TextStyle(
-                        textAlign = TextAlign.End,
-                    )
-                ) },
-                navigationIcon = {
-                    IconButton(onClick = {}) {
-                        Icon(
-                            imageVector = Icons.Default.KeyboardArrowLeft,
-                            contentDescription = "back"
-                        )
-                    }
-                },
-                actions = {
-                    FilledTonalButton(onClick = {},
-                        modifier = Modifier.padding(horizontal = 8.dp)) {
-                        Text("Get Started")
-                    }
+                    else -> Unit
                 }
 
-            )
-        }
-    ){
-            innerPadding ->
-        Column (modifier = Modifier
-            .padding(innerPadding)
-            .fillMaxSize()
-            .padding(horizontal = 16.dp),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            // Text("Ping Me", style = TextStyle(fontSize = 24.sp),)
-
-
-
-            Text(text = "Welcome Back", style =  TextStyle(
-                fontSize = 32.sp,
-                fontWeight = FontWeight.SemiBold, letterSpacing = 2.sp
-
-            )
-            )
-            OutlinedTextField(
-
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 15.dp),
-                value = emailtext,
-                onValueChange = { emailtext = it },
-                label = { Text(text = "Email") },
-                placeholder = {
-                    Text(text = "Enter your email here")
-                },
-                leadingIcon = {
-                    Icon(
-                        imageVector = Icons.Default.Email,
-                        contentDescription = "email"
-                    )
-                },
-                keyboardOptions = KeyboardOptions(
-                    keyboardType = KeyboardType.Email,
-                    imeAction = ImeAction.Next
-                )
-                //prefix = Icon(imageVector = Icons.Default.Email, contentDescription = "email")
-
-            )
-
-            Spacer(modifier = Modifier.height(10.dp))
-            OutlinedTextField(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 15.dp),
-                value = passwordtext,
-                onValueChange = { passwordtext = it },
-                label = { Text(text = "Password") },
-                placeholder = {
-                    Text(text = "Enter your password here")
-                },
-                leadingIcon = {
-                    Icon(
-                        imageVector = Icons.Default.CheckCircle,
-                        contentDescription = "email"
-                    )
-                },
-                keyboardOptions = KeyboardOptions(
-                    keyboardType = KeyboardType.Password,
-                    imeAction = ImeAction.Done
-                ),
-                trailingIcon = {
-                    IconButton(onClick = {
-                        showpassword = !showpassword
-                    }) {
-                        Icon(imageVector =  if (showpassword){
-                            Icons.Default.Favorite
-                        } else {
-                            Icons.Default.FavoriteBorder
-                        }, contentDescription = "email")
-                    }
-                },
-                visualTransformation = if (showpassword){
-                    VisualTransformation.None} else{
-                    PasswordVisualTransformation()
-                }
-                //prefix = Icon(imageVector = Icons.Default.Email, contentDescription = "email")
-
-            )
-            Spacer(modifier = Modifier.height(10.dp))
-
-            FilledTonalButton(onClick = {
-               authviewmodel.signup(emailtext,passwordtext)
-
-                //navController.navigate("Signup")
-            }, modifier = Modifier
-                .fillMaxWidth()
-                .padding(vertical = 10.dp, horizontal = 15.dp)) {
-                Text("Create Account",modifier = Modifier.padding(vertical = 10.dp))
             }
+            Scaffold(
+                topBar = {
+                    TopAppBar(
+                        title = {
+                            Text(
+                                text = "Already have an account?",
+                                modifier = Modifier.fillMaxWidth(),
+                                style = TextStyle(
+                                    textAlign = TextAlign.End,
+                                )
+                            ) },
+                        navigationIcon = {
+                            IconButton(onClick = {}) {
+                                Icon(
+                                    imageVector = Icons.Default.KeyboardArrowLeft,
+                                    contentDescription = "back"
+                                )
+                            }
+                        },
+                        actions = {
+                            FilledTonalButton(onClick = {},
+                                modifier = Modifier.padding(horizontal = 8.dp)) {
+                                Text("Get Started")
+                            }
+                        }
+
+                    )
+                }
+            ){
+                    innerPadding ->
+                Column (modifier = Modifier
+                    .padding(innerPadding)
+                    .fillMaxSize()
+                    .padding(horizontal = 16.dp),
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    // Text("Ping Me", style = TextStyle(fontSize = 24.sp),)
 
 
+
+                    Text(text = "Welcome Back", style =  TextStyle(
+                        fontSize = 32.sp,
+                        fontWeight = FontWeight.SemiBold, letterSpacing = 2.sp
+
+                    )
+                    )
+                    OutlinedTextField(
+
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 15.dp),
+                        value = emailtext,
+                        onValueChange = { emailtext = it },
+                        label = { Text(text = "Email") },
+                        placeholder = {
+                            Text(text = "Enter your email here")
+                        },
+                        leadingIcon = {
+                            Icon(
+                                imageVector = Icons.Default.Email,
+                                contentDescription = "email"
+                            )
+                        },
+                        keyboardOptions = KeyboardOptions(
+                            keyboardType = KeyboardType.Email,
+                            imeAction = ImeAction.Next
+                        )
+                        //prefix = Icon(imageVector = Icons.Default.Email, contentDescription = "email")
+
+                    )
+
+                    Spacer(modifier = Modifier.height(10.dp))
+                    OutlinedTextField(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 15.dp),
+                        value = passwordtext,
+                        onValueChange = { passwordtext = it },
+                        label = { Text(text = "Password") },
+                        placeholder = {
+                            Text(text = "Enter your password here")
+                        },
+                        leadingIcon = {
+                            Icon(
+                                imageVector = Icons.Default.CheckCircle,
+                                contentDescription = "email"
+                            )
+                        },
+                        keyboardOptions = KeyboardOptions(
+                            keyboardType = KeyboardType.Password,
+                            imeAction = ImeAction.Done
+                        ),
+                        trailingIcon = {
+                            IconButton(onClick = {
+                                showpassword = !showpassword
+                            }) {
+                                Icon(imageVector =  if (showpassword){
+                                    Icons.Default.Favorite
+                                } else {
+                                    Icons.Default.FavoriteBorder
+                                }, contentDescription = "email")
+                            }
+                        },
+                        visualTransformation = if (showpassword){
+                            VisualTransformation.None} else{
+                            PasswordVisualTransformation()
+                        }
+                        //prefix = Icon(imageVector = Icons.Default.Email, contentDescription = "email")
+
+                    )
+                    Spacer(modifier = Modifier.height(10.dp))
+
+                    FilledTonalButton(onClick = {
+                        authviewmodel.signup(emailtext,passwordtext)
+
+                        //navController.navigate("Signup")
+                    }, modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 10.dp, horizontal = 15.dp)) {
+                        Text("Create Account",modifier = Modifier.padding(vertical = 10.dp))
+                    }
+
+
+                }
+            }
         }
     }
+
 }

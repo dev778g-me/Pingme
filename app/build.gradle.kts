@@ -44,6 +44,8 @@ android {
 }
 
 dependencies {
+    implementation("androidx.compose.material:material-icons-extended:1.7.7")
+   // implementation ("androidx.compose.material:material-icons-extended:$compose_version")
     implementation(platform("com.google.firebase:firebase-bom:33.8.0"))
     implementation("com.google.firebase:firebase-analytics")
     implementation(libs.androidx.core.ktx)
@@ -64,14 +66,27 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
-    implementation( "com.google.dagger:hilt-android:2.55")
-    ksp ("com.google.dagger:hilt-compiler:2.55")
+    implementation( libs.hilt.android)
+    ksp (libs.google.hilt.compiler)
 
     // For instrumentation tests
-    androidTestImplementation  ("com.google.dagger:hilt-android-testing:2.55")
-    kspAndroidTest ("com.google.dagger:hilt-compiler:2.55")
+    androidTestImplementation  (libs.hilt.android.testing)
+    kspAndroidTest (libs.google.hilt.compiler)
 
     // For local unit tests
-    testImplementation ("com.google.dagger:hilt-android-testing:2.55")
-    kspTest ("com.google.dagger:hilt-compiler:2.55")
+    testImplementation (libs.hilt.android.testing)
+    kspTest (libs.google.hilt.compiler)
+
+    val voyagerVersion = "1.1.0-beta02"
+    // Navigator
+    implementation(libs.voyager.navigator)
+
+    // Screen Model
+    implementation(libs.voyager.screenmodel)
+
+    // BottomSheetNavigator
+    implementation(libs.voyager.bottom.sheet.navigator)
+
+    // TabNavigator
+    implementation(libs.voyager.tab.navigator)
 }
